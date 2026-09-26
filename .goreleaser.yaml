@@ -1,0 +1,29 @@
+version: 2
+project_name: byway
+builds:
+  - main: ./cmd/byway
+    env: [CGO_ENABLED=0]
+    goos: [darwin, linux]
+    goarch: [amd64, arm64]
+    ldflags:
+      - -s -w -X github.com/gabrielegenovesi/byway/internal/cli.Version={{.Version}}
+archives:
+  - files: [LICENSE, README.md, contrib/fish/byway.fish]
+checksum:
+  name_template: checksums.txt
+# ponytail: `brews` is deprecated since goreleaser v2.16, but casks can only ship
+# fish *completions* (lazy-loaded), not vendor_conf.d, which zero-setup fish needs.
+# Migrate to homebrew_casks when that changes or before goreleaser v3.
+brews:
+  - repository:
+      owner: gabrielegenovesi
+      name: homebrew-byway
+      token: "{{ .Env.HOMEBREW_TAP_TOKEN }}"
+    homepage: https://github.com/gabrielegenovesi/byway
+    description: Save shell commands by name, run them anywhere
+    license: MIT
+    install: |
+      bin.install "byway"
+      (share/"fish/vendor_conf.d").install "contrib/fish/byway.fish"
+    test: |
+      system "#{bin}/byway", "--version"
