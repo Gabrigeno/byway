@@ -11,9 +11,7 @@ archives:
   - files: [LICENSE, README.md, contrib/fish/byway.fish]
 checksum:
   name_template: checksums.txt
-# ponytail: `brews` is deprecated since goreleaser v2.16, but casks can only ship
-# fish *completions* (lazy-loaded), not vendor_conf.d, which zero-setup fish needs.
-# Migrate to homebrew_casks when that changes or before goreleaser v3.
+
 brews:
   - repository:
       owner: gabrielegenovesi

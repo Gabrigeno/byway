@@ -141,9 +141,7 @@ func header(l string) (string, bool) {
 	return strings.ReplaceAll(strings.Trim(t[:i], "["), " ", ""), true
 }
 
-// findBlock returns [start,end) of name's block. Trailing blank and comment
 // lines belong to the next block, not this one.
-// ponytail: line-based; a multi-line string whose line starts with "[" would confuse it.
 func findBlock(lines []string, name string) (int, int, bool) {
 	start, end := -1, len(lines)
 	for i, l := range lines {
@@ -178,7 +176,6 @@ func splice(lines []string, s, e int, repl []string) []string {
 	return append(out, lines[e:]...)
 }
 
-// withLock takes an exclusive flock on the registry directory (no stray lock file).
 func withLock(dir string, fn func() error) error {
 	if err := os.MkdirAll(dir, 0o755); err != nil {
 		return err

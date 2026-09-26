@@ -12,8 +12,7 @@ type Step struct {
 	Line  string
 }
 
-// Run executes steps in order, inheriting stdio, and returns the first
-// non-zero exit code.
+// Run executes steps in order inheriting stdio and returns the first
 func Run(steps []Step, in io.Reader, out, errw io.Writer) (int, error) {
 	for _, s := range steps {
 		bin := s.Shell

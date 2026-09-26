@@ -9,9 +9,7 @@ import (
 	"regexp"
 	"strings"
 	"text/tabwriter"
-
 	"github.com/spf13/cobra"
-
 	"github.com/gabrielegenovesi/byway/internal/runner"
 	"github.com/gabrielegenovesi/byway/internal/store"
 	"github.com/gabrielegenovesi/byway/internal/tmpl"
@@ -20,7 +18,7 @@ import (
 // Version is set at build time via -ldflags.
 var Version = "dev"
 
-// exitError carries a wrapped command's exit code without printing anything.
+// exitError carries a wrapped command's exitcode without printing anything.
 type exitError int
 
 func (e exitError) Error() string { return fmt.Sprintf("exit status %d", int(e)) }
@@ -85,7 +83,6 @@ func (a *app) path() string {
 
 func (a *app) load() (*store.Registry, error) { return store.Load(a.path()) }
 
-// run resolves args to a command and executes (or prints) it.
 func (a *app) run(cmd *cobra.Command, args []string) error {
 	reg, err := a.load()
 	if err != nil {
@@ -118,7 +115,7 @@ func (a *app) run(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
-// resolveName finds the longest prefix of args that, joined by ".", names a command.
+// resolveName finds the longest prefix of args that, joined by ".
 func resolveName(reg *store.Registry, args []string) (string, []string, error) {
 	for i := len(args); i >= 1; i-- {
 		n := strings.Join(args[:i], ".")
@@ -215,7 +212,7 @@ func plan(reg *store.Registry, name string, pos []string, flags map[string]strin
 	return out, nil
 }
 
-// eatGlobal parses -n/--dry-run/--file for subcommands that disable flag parsing.
+//  -n/--dry-run/--file for subcommands that disable flag parsing.
 func (a *app) eatGlobal(args []string) []string {
 	for len(args) > 0 {
 		switch {
@@ -292,7 +289,6 @@ func (a *app) lsCmd() *cobra.Command {
 	}
 }
 
-// namesCmd feeds shell completions: "name<TAB>summary" per line.
 func (a *app) namesCmd() *cobra.Command {
 	return &cobra.Command{
 		Use: "__names", Hidden: true,
@@ -309,7 +305,6 @@ func (a *app) namesCmd() *cobra.Command {
 	}
 }
 
-// isTTY reports whether v is an *os.File attached to a terminal.
 func isTTY(v any) bool {
 	f, ok := v.(*os.File)
 	if !ok {

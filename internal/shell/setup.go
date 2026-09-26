@@ -26,7 +26,7 @@ func DetectShell(shellEnv string) string {
 	return ""
 }
 
-// ponytail: bash uses ~/.bashrc only; macOS login bash reads ~/.bash_profile, add when someone asks.
+//  bash uses ~/.bashrc only; macOS login bash reads ~/.bash_profile, add when someone asks.
 func RCPath(sh, home string) (string, error) {
 	switch sh {
 	case "zsh":

@@ -11,8 +11,7 @@ import (
 var selfRe = regexp.MustCompile(`^(command\s+)?byway\s+save(\s|$)`)
 
 // PickLast returns the newest entry in raw (oldest first) that is not the
-// "byway save" call itself.
-// ponytail: multi-line history entries arrive split; the last line wins.
+//     "byway save" call itself.
 func PickLast(raw string) (string, error) {
 	lines := strings.Split(raw, "\n")
 	for i := len(lines) - 1; i >= 0; i-- {
