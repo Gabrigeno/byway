@@ -98,8 +98,10 @@ Rules:
 - Missing required value → `byway new: missing argument 1`, nothing runs.
 - Extra positional args with no `{{@}}` in the template are appended, quoted,
   to the end of the command (so wrappers like `docker compose ps` accept flags).
-- `--name=val` flags are parsed only before a literal `--`; everything after
-  `--` is positional.
+- `--name=val` is consumed as a variable only if `{{name}}` is referenced, and
+  only before a literal `--`; everything after `--` is positional.
+- Only `{{key}}` where key starts with a letter, digit, `@` or `!` is a
+  placeholder, so Go/docker templates like `{{.Name}}` stay literal.
 - Precedence for `{{name}}`: CLI flag → `[vars]` → default → error.
 
 ## 4. CLI
@@ -120,8 +122,10 @@ byway run <name> [args]         explicit run (for names colliding with subcomman
 ```
 
 Global flags: `-n/--dry-run` (print resolved command, exit 0), `--file PATH`.
-They must appear **before** `<name>` (`byway -n new x`); every `--k=v` after
-`<name>` is a template variable, never a byway flag.
+They must appear **before** `<name>` (`byway -n new x`); after `<name>` nothing
+is a byway flag. A `--k=v` after `<name>` is a template variable only when the
+command (or one of its steps) references `{{k}}`; otherwise it is passed through
+as a positional argument (so `byway dps --format=json` reaches the wrapped tool).
 
 - Subcommand names are reserved: `save ls` is rejected with a hint.
 - `save`/`add` refuse to overwrite an existing name without `-f`.
@@ -143,7 +147,7 @@ They must appear **before** `<name>` (`byway -n new x`); every `--k=v` after
 
 Automatic installation:
 - **fish**: the Homebrew formula installs `share/fish/vendor_conf.d/byway.fish`
-  and `share/fish/vendor_completions.d/byway.fish`. Nothing to do.
+  (which sources `byway init fish`, completions included). Nothing to do.
 - **zsh/bash**: when the binary runs without `BYWAY_INIT` in an interactive TTY,
   it detects the shell from `$SHELL` and asks once:
   `Add byway integration to ~/.zshrc? [Y/n]`. Yes → appends
