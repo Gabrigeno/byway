@@ -319,4 +319,3 @@ func isTTY(v any) bool {
 	return err == nil && st.Mode()&os.ModeCharDevice != 0
 }
 
-func (a *app) addSetup(root *cobra.Command)  {} // replaced in Task 8
