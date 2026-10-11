@@ -40,12 +40,6 @@ func Resolve(t string, in Input) (string, error) {
 			maxN = n
 		}
 	}
-	q := func(s string, raw bool) string {
-		if raw {
-			return s
-		}
-		return shell.Quote(s, in.Shell)
-	}
 	rest := []string{}
 	if len(in.Args) > maxN {
 		rest = in.Args[maxN:]
@@ -53,8 +47,20 @@ func Resolve(t string, in Input) (string, error) {
 
 	var b strings.Builder
 	last := 0
+	var inq byte
+	q := func(s string, raw bool) string {
+		if raw {
+			return s
+		}
+		s = shell.Quote(s, in.Shell)
+		if inq != 0 {
+			return string(inq) + s + string(inq)
+		}
+		return s
+	}
 	for _, m := range matches {
 		b.WriteString(t[last:m[0]])
+		inq = quoteState(t[last:m[0]], inq, in.Shell)
 		last = m[1]
 		raw := m[3] > m[2]
 		key := t[m[4]:m[5]]
@@ -106,12 +112,29 @@ func Resolve(t string, in Input) (string, error) {
 		b.WriteString(q(v, raw))
 	}
 	b.WriteString(t[last:])
+	inq = 0
 	if !hasAll {
 		for _, a := range rest {
 			b.WriteString(" " + q(a, false))
 		}
 	}
 	return b.String(), nil
+}
+
+// quoteState returns the quote that is open after s, starting from inq.
+func quoteState(s string, inq byte, sh string) byte {
+	for i := 0; i < len(s); i++ {
+		c := s[i]
+		switch {
+		case c == '\\' && (inq != '\'' || sh == "fish"):
+			i++
+		case inq == 0 && (c == '\'' || c == '"'):
+			inq = c
+		case c == inq:
+			inq = 0
+		}
+	}
+	return inq
 }
 
 // Refs lists named variables referenced by t, first occurrence order.
