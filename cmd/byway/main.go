@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/gabrielegenovesi/byway/internal/cli"
+	"github.com/Gabrigeno/byway/internal/cli"
 )
 
 func main() {

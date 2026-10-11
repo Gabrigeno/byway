@@ -1,4 +1,4 @@
-module github.com/gabrielegenovesi/byway
+module github.com/Gabrigeno/byway
 
 go 1.27.1
 

@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/gabrielegenovesi/byway/internal/shell"
+	"github.com/Gabrigeno/byway/internal/shell"
 )
 
 // Input is everything a template can draw values from.

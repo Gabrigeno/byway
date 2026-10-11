@@ -6,7 +6,7 @@ builds:
     goos: [darwin, linux]
     goarch: [amd64, arm64]
     ldflags:
-      - -s -w -X github.com/gabrielegenovesi/byway/internal/cli.Version={{.Version}}
+      - -s -w -X github.com/Gabrigeno/byway/internal/cli.Version={{.Version}}
 archives:
   - files: [LICENSE, README.md, contrib/fish/byway.fish]
 checksum:
@@ -14,10 +14,10 @@ checksum:
 
 brews:
   - repository:
-      owner: gabrielegenovesi
+      owner: Gabrigeno
       name: homebrew-byway
       token: "{{ .Env.HOMEBREW_TAP_TOKEN }}"
-    homepage: https://github.com/gabrielegenovesi/byway
+    homepage: https://github.com/Gabrigeno/byway
     description: Save shell commands by name, run them anywhere
     license: MIT
     install: |

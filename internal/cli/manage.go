@@ -11,9 +11,9 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/gabrielegenovesi/byway/internal/capture"
-	"github.com/gabrielegenovesi/byway/internal/shell"
-	"github.com/gabrielegenovesi/byway/internal/store"
+	"github.com/Gabrigeno/byway/internal/capture"
+	"github.com/Gabrigeno/byway/internal/shell"
+	"github.com/Gabrigeno/byway/internal/store"
 )
 
 func (a *app) addManage(root *cobra.Command) {

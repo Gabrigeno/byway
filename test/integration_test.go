@@ -12,7 +12,7 @@ import (
 
 	"github.com/creack/pty"
 
-	"github.com/gabrielegenovesi/byway/internal/store"
+	"github.com/Gabrigeno/byway/internal/store"
 )
 
 type syncBuf struct {

@@ -10,9 +10,9 @@ import (
 	"strings"
 	"text/tabwriter"
 	"github.com/spf13/cobra"
-	"github.com/gabrielegenovesi/byway/internal/runner"
-	"github.com/gabrielegenovesi/byway/internal/store"
-	"github.com/gabrielegenovesi/byway/internal/tmpl"
+	"github.com/Gabrigeno/byway/internal/runner"
+	"github.com/Gabrigeno/byway/internal/store"
+	"github.com/Gabrigeno/byway/internal/tmpl"
 )
 
 // Version is set at build time via -ldflags.

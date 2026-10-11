@@ -8,7 +8,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/gabrielegenovesi/byway/internal/shell"
+	"github.com/Gabrigeno/byway/internal/shell"
 )
 
 func (a *app) addSetup(root *cobra.Command) {

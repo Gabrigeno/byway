@@ -15,9 +15,11 @@ byway new feat-y
 ## Install
 
 ```sh
-brew install gabrielegenovesi/byway/byway   # fish: ready. zsh/bash: answer Y on first run
+brew install Gabrigeno/byway/byway   # fish: ready. zsh/bash: answer Y on first run
 # or
-curl -fsSL https://raw.githubusercontent.com/gabrielegenovesi/byway/main/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/Gabrigeno/byway/main/install.sh | sh
+# or
+go install github.com/Gabrigeno/byway/cmd/byway@latest   # then: byway setup
 ```
 
 ## Registry

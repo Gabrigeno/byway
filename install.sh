@@ -1,7 +1,7 @@
 #!/bin/sh
 # Install byway from GitHub releases, then set up the shell integration.
 set -eu
-REPO=gabrielegenovesi/byway
+REPO=Gabrigeno/byway
 os=$(uname -s | tr '[:upper:]' '[:lower:]')
 case $(uname -m) in
   x86_64|amd64) arch=amd64 ;;
