@@ -50,7 +50,7 @@ func shellCmd(t *testing.T, sh, home string) *exec.Cmd {
 		return exec.Command("bash", "--noprofile", "--rcfile", rc, "-i")
 	case "zsh":
 		must(t, os.WriteFile(filepath.Join(home, ".zshrc"), []byte(`eval "$(command byway init zsh)"`+"\n"), 0o644))
-		return exec.Command("zsh", "-i")
+		return exec.Command("zsh", "-o", "NO_GLOBAL_RCS", "-i")
 	default: // fish
 		dir := filepath.Join(home, ".config", "fish")
 		must(t, os.MkdirAll(dir, 0o755))
